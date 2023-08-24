@@ -59,7 +59,7 @@ class _RankingPageState extends State<RankingPage> {
     futureResultPage = fetchInfo();
   }
 
-  Color rankingColor = const Color(0xff0069df);
+  Color rankingColor = const Color(0xff6BE9CB);
 
   DataRow _rankingElem({
     required Color rankingColor,

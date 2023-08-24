@@ -27,7 +27,7 @@ class JurisdictionInfoPage extends StatelessWidget {
                   SizedBox(width: 5),
                   Icon(
                     Icons.local_police,
-                    color: Color(0xff2EC6F3),
+                    color: Color(0xff4baf96),
                     size: 20,
                   ),
                 ],
@@ -127,7 +127,7 @@ class JurisdictionInfoPage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff2EC6F3)),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff4baf96)),
         ),
         SizedBox(height: 8),
         for (int i = 0; i < divisions.length; i++) ...[

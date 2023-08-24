@@ -15,10 +15,10 @@ class MainNavigationBar extends StatelessWidget {
       showSelectedLabels: false,
       items: const [
         BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded, color: Color(0xff2EC6F3)),
+            icon: Icon(Icons.home_rounded, color: Color(0xff4baf96)),
             label: '홈'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline_rounded, color: Color(0xff2EC6F3)),
+            icon: Icon(Icons.info_outline_rounded, color: Color(0xff4baf96)),
             label: '신고처 정보'),
       ],
       onTap: (index) {

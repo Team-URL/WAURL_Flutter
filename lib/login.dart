@@ -133,19 +133,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
-                  backgroundColor: Color(0xff2EC6F3), // 파란색 바탕
+                  backgroundColor: Color(0xff4baf96), // 파란색 바탕
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16), // 버튼 모서리 둥글기 조절
                   ),
                 ),
-                child: Text('로그인', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),
+                child: Text('로그인', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color:Colors.white),),
               ),
 
               SizedBox(height: 5),
 
               TextButton(
                 onPressed: _signup,
-                child: Text('회원가입', style: TextStyle(color: Color(0xff2EC6F3), fontSize: 18),),
+                child: Text('회원가입', style: TextStyle(color: Color(0xff4baf96), fontSize: 18,fontWeight: FontWeight.w600),),
               ),
             ],
           ),
