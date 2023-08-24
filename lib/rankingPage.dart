@@ -1,99 +1,64 @@
 import 'package:flutter/material.dart';
-
-// api 연동위한 import.
-import 'package:http/http.dart' as http;
 import 'package:who_are_url/mainAppBar.dart';
+// api 연동위한 import.
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:who_are_url/mainNavigationBar.dart';
 
+Future<List<UnknownPage>> fetchInfo() async {
+  var url = Uri.http('13.124.151.213:8080', '/result/chart');
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+  });
+
+  if (response.statusCode == 200) {
+    //만약 서버가 ok응답을 반환하면, json을 파싱합니다
+    print('응답했다');
+    print(json.decode(response.body));
+    List<dynamic> body = json.decode(response.body);
+    List<UnknownPage> chart =
+    body.map((dynamic item) => UnknownPage.fromJson(item)).toList();
+
+    return chart;
+  } else {
+    //만약 응답이 ok가 아니면 에러를 던집니다.
+    throw Exception('API를 불러오는데 실패했습니다');
+  }
+}
+
 class UnknownPage {
-  final String id;
   final String url;
   final int reportCount;
 
   UnknownPage({
-    required this.id,
     required this.url,
     required this.reportCount,
   });
+
+  factory UnknownPage.fromJson(Map<String, dynamic> json) {
+    return UnknownPage(
+      url: json["url"],
+      reportCount: json["reportCount"],
+    );
+  }
 }
 
-class RankingPage extends StatelessWidget {
-  final List<UnknownPage> exampleList = [
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.dangeroussite.com',
-      reportCount: 51151,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.upsetsite.com',
-      reportCount: 21451,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.badguysite.com',
-      reportCount: 12523,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.parisphishing.com',
-      reportCount: 9111,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.ohmyphishing.com',
-      reportCount: 7109,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.dangeroussite.com',
-      reportCount: 4105,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.upsetsite.com',
-      reportCount: 2102,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.badguysite.com',
-      reportCount: 2100,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.parisphishing.com',
-      reportCount: 1898,
-    ),
-    UnknownPage(id: 'asdfadf', url: 'www.ohmyphishing.com', reportCount: 84),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.dangeroussite.com',
-      reportCount: 1751,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.upsetsite.com',
-      reportCount: 1621,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.badguysite.com',
-      reportCount: 912,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.parisphishing.com',
-      reportCount: 811,
-    ),
-    UnknownPage(
-      id: 'asdfadf',
-      url: 'www.ohmyphishing.com',
-      reportCount: 374,
-    ),
-  ];
+class RankingPage extends StatefulWidget {
+  @override
+  State<RankingPage> createState() => _RankingPageState();
+}
+
+class _RankingPageState extends State<RankingPage> {
+  late Future<List<UnknownPage>> futureResultPage;
+
+  @override
+  void initState() {
+    super.initState();
+    futureResultPage = fetchInfo();
+  }
+
   Color rankingColor = const Color(0xff0069df);
 
   DataRow _rankingElem({
@@ -197,19 +162,22 @@ class RankingPage extends StatelessWidget {
                 fit: FlexFit.tight,
                 flex: 1,
                 child: SingleChildScrollView(
-                  child: DataTable(
-                    showBottomBorder: true,
-                    headingRowHeight: 0,
-                    dataRowHeight: 65,
-                    dividerThickness: 2,
-                    horizontalMargin: 0,
-                    columnSpacing: 5,
-                    columns: const <DataColumn>[
-                      DataColumn(label: Text('순위')),
-                      DataColumn(label: Text('사이트 주소')),
-                      DataColumn(label: Text('신고횟수')),
-                    ],
-                    rows: _makeRankingTable(list: exampleList),
+                  child: FutureBuilder<List<UnknownPage>>(
+                    future: futureResultPage,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container(
+                            alignment: Alignment.center,
+                            child: const CircularProgressIndicator(
+                              color: Color(0xff0069df),
+                            )); // 로딩 중 표시
+                      } else if (snapshot.hasError) {
+                        return Text('데이터 가져오기 실패: ${snapshot.error}');
+                      } else {
+                        // 데이터 가져오기 성공한 경우
+                        return buildContent(snapshot.data!);
+                      }
+                    },
                   ),
                 ),
               )
@@ -217,5 +185,22 @@ class RankingPage extends StatelessWidget {
           ),
           bottomNavigationBar: const MainNavigationBar(),
         ));
+  }
+
+  Widget buildContent(List<UnknownPage> list) {
+    return DataTable(
+      showBottomBorder: true,
+      headingRowHeight: 0,
+      dataRowHeight: 65,
+      dividerThickness: 2,
+      horizontalMargin: 0,
+      columnSpacing: 5,
+      columns: const <DataColumn>[
+        DataColumn(label: Text('순위')),
+        DataColumn(label: Text('사이트 주소')),
+        DataColumn(label: Text('신고횟수')),
+      ],
+      rows: _makeRankingTable(list: list),
+    );
   }
 }

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:who_are_url/mainAppBar.dart';
+import 'package:who_are_url/mainNavigationBar.dart';
+import 'package:who_are_url/resultPage.dart';
 
 class SearchingPage extends StatefulWidget {
 
-  SearchingPage({super.key});
+  const SearchingPage({super.key});
 
   @override
   State<SearchingPage> createState() => _SearchingPageState();
 }
 
 class _SearchingPageState extends State<SearchingPage> {
-  final _urlController = TextEditingController();
+  final _domainController = TextEditingController();
 
   void _onPressed() {
-    if(_urlController.text.isEmpty) {
+    if(_domainController.text.isEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -30,60 +33,90 @@ class _SearchingPageState extends State<SearchingPage> {
       );
     }
     else {
-      // 검사결과 페이지로 이동.
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context)
+        =>ResultPage(
+          url: _domainController.text,
+        ),
+      ));
     }
   }
 
   @override
   void dispose() {
-    _urlController.dispose();
+    _domainController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(),
-          TextField(
-          controller: _urlController,
-          textAlign: TextAlign.left,
-          textAlignVertical: TextAlignVertical.center,
-          cursorColor: Colors.grey,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            height: 1,
-          ),
+    return MaterialApp(
+        title: 'WhoAreURL',
+        home: Scaffold(
+          appBar: MainAppBar(appBar: AppBar(), hasBackButton: false, context: context),
+          body: Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.fromLTRB(40, 60, 40, 60),
+            width: double.infinity,
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
 
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            hoverColor: const Color(0xffffffff),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 2, color: Color(0xff2ec6f3)),
-              borderRadius: BorderRadius.circular(15),
-              gapPadding: 15,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              gapPadding: 15,
-            ),
-            suffixIcon: IconButton(
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              onPressed: _onPressed,
-              icon: const Icon(Icons.search),
-            ),
-            contentPadding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-            hintText: 'https://www.whoareurl.com',
-            hintStyle: const TextStyle(
-              color: Color(0xff868686),
+              children: [
+                const SizedBox(   // 안내 메세지.
+                  child: Text('아래에 검사할 사이트 주소를\n입력해주세요',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        height: 1.3
+                    ),
+                  ),
+                ),
+                Container(   // 검색 바.
+                    margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: TextField(
+                      controller: _domainController,
+                      textAlign: TextAlign.left,
+                      textAlignVertical: TextAlignVertical.center,
+                      cursorColor: Colors.grey,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        height: 1,
+                      ),
+
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hoverColor: const Color(0xffffffff),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 2, color: Color(0xff0069df)),
+                          borderRadius: BorderRadius.circular(15),
+                          gapPadding: 15,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          gapPadding: 15,
+                        ),
+                        suffixIcon: IconButton(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          onPressed: _onPressed,
+                          icon: const Icon(Icons.search),
+                        ),
+                        contentPadding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                        hintText: 'https://www.whoareurl.com',
+                        hintStyle: const TextStyle(
+                          color: Color(0xff868686),
+                        ),
+                      ),
+                    )
+                ),
+              ],
             ),
           ),
-        ),
-        ],
-      ),
+          bottomNavigationBar: const MainNavigationBar(),
+        )
     );
   }
 }

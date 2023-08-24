@@ -29,7 +29,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       return Container(
         margin: const EdgeInsets.all(10),
         child: Image.asset(
-          'assets/images/WhoAreURL_logo.png',
+          'assets/images/logo.png',
           alignment: Alignment.center,
           height: 45,
         ),
