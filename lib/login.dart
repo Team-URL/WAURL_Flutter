@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(// 로그인 화면 appBar 불필요
-      body: Padding(
+      body: SingleChildScrollView(
 
         padding: const EdgeInsets.all(50),
         child: Column(
