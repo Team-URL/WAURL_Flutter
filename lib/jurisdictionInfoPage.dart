@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:who_are_url/mainAppBar.dart';
 import 'package:who_are_url/mainNavigationBar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
-import 'package:who_are_url/mainAppBar.dart';
-import 'package:who_are_url/mainNavigationBar.dart';
 
 class JurisdictionInfoPage extends StatelessWidget {
   @override

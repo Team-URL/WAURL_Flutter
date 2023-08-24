@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:who_are_url/searchingPage.dart';
 import 'join.dart';
 
 import 'package:http/http.dart' as http;
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+        MaterialPageRoute(builder: (context) => SearchingPage()), (route) => false);
   }
 
   void _signup() {
@@ -62,103 +63,93 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(// 로그인 화면 appBar 불필요
       body: SingleChildScrollView(
-
-        padding: const EdgeInsets.all(50),
+        padding: EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 70,),
             Image.asset(
-              'assets/logo.png',
-              width: 150,
-              height: 150,
+              'assets/images/logo.png',
+              height: 100,
             ),
 
-            SizedBox(height: 70),
+              SizedBox(height: 80,),
 
-            TextFormField(
-              controller: _emailController,
-              textAlign: TextAlign.left,
-              cursorColor: Colors.grey,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                height: 1,
-              ),
-
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  gapPadding: 15,
+              TextFormField(
+                controller: _emailController,
+                textAlign: TextAlign.left,
+                cursorColor: Colors.grey,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  height: 1,
                 ),
 
-                contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-                hintText: 'email',
-                hintStyle: TextStyle(
-                  color: Color(0xff868686),
-                ),
-              ),
-            ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    gapPadding: 15,
+                  ),
 
-            SizedBox(height: 30),
-
-            TextField(
-              controller: _passwordController,
-              textAlign: TextAlign.left,
-              cursorColor: Colors.grey,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                height: 1,
-              ),
-
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.grey),
-                  gapPadding: 15,
-                ),
-
-                contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-                hintText: 'password',
-                hintStyle: TextStyle(
-                  color: Color(0xff868686),
-                ),
-              ),
-              obscureText: true,
-            ),
-
-            SizedBox(height: 20),
-
-            ElevatedButton(
-              onPressed: _login,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff2EC6F3)), // 파란색 바탕
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16), // 버튼 모서리 둥글기 조절
+                  contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                  hintText: 'email',
+                  hintStyle: TextStyle(
+                    color: Color(0xff868686),
                   ),
                 ),
               ),
-              child: Text('로그인'),
-            ),
 
-            SizedBox(height: 10),
+              SizedBox(height: 20),
 
-            TextButton(
-              onPressed: _signup,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // 하얀색 바탕
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16), // 버튼 모서리 둥글기 조절
+              TextField(
+                controller: _passwordController,
+                textAlign: TextAlign.left,
+                cursorColor: Colors.grey,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  height: 1,
+                ),
+
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(color: Colors.grey),
+                    gapPadding: 15,
+                  ),
+
+                  contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                  hintText: 'password',
+                  hintStyle: TextStyle(
+                    color: Color(0xff868686),
                   ),
                 ),
+                obscureText: true,
               ),
-              child: Text('회원가입', style: TextStyle(color: Color(0xff2EC6F3)),),
-            ),
-          ],
+
+              SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: _login,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
+                  backgroundColor: Color(0xff2EC6F3), // 파란색 바탕
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16), // 버튼 모서리 둥글기 조절
+                  ),
+                ),
+                child: Text('로그인', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),
+              ),
+
+              SizedBox(height: 5),
+
+              TextButton(
+                onPressed: _signup,
+                child: Text('회원가입', style: TextStyle(color: Color(0xff2EC6F3), fontSize: 18),),
+              ),
+            ],
+          ),
         ),
-      ),
     );
   }
 }

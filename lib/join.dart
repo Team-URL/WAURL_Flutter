@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:who_are_url/mainAppBar.dart';
 import 'login.dart';
 
 import 'package:http/http.dart' as http;
@@ -97,6 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
  @override
  Widget build(BuildContext context) {
   return Scaffold(
+    appBar: MainAppBar(appBar: AppBar(), hasBackButton: true, context: context),
    body: SingleChildScrollView(
     padding: const EdgeInsets.all(50),
     child: Column(
@@ -133,72 +135,98 @@ class _SignUpScreenState extends State<SignUpScreen> {
          textAlign: TextAlign.left,
          cursorColor: Colors.grey,
          style: TextStyle(
-           fontSize: 16,
-           fontWeight: FontWeight.w500,
-           height: 1,
-         ),
-
-         decoration: InputDecoration(
-           border: OutlineInputBorder(
-             borderRadius: BorderRadius.circular(15),
-             borderSide: BorderSide(color: Colors.grey),
-             gapPadding: 15,
-           ),
-
-           contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-           hintText: 'Password',
-           hintStyle: TextStyle(
-             color: Color(0xff868686),
-           ),
-         ),
-         obscureText: true,
-       ),
-
-       SizedBox(height: 10),
-
-      TextField(
-       controller: _chekPasswordController,
-        textAlign: TextAlign.left,
-        cursorColor: Colors.grey,
-        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           height: 1,
-        ),
+         ),
 
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.grey),
-            gapPadding: 15,
-          ),
+         decoration: InputDecoration(
+             border: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(15),
+               gapPadding: 15,
+             ),
 
           contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-          hintText: 'Password 확인',
-          hintStyle: TextStyle(
-            color: Color(0xff868686),
-          ),
+             hintText: 'email',
+             hintStyle: TextStyle(
+               color: Color(0xff868686),
+             ),
+           )
         ),
-        obscureText: true,
-      ),
 
-      SizedBox(height: 30),
+        SizedBox(height: 10),
 
-      ElevatedButton(
-       onPressed: _signup,
-       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color(0xff2EC6F3)),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-         )
-        )
-       ),
-       child: Text('회원가입'),
+         TextField(
+           controller: _passwordController,
+           textAlign: TextAlign.left,
+           cursorColor: Colors.grey,
+           style: TextStyle(
+             fontSize: 16,
+             fontWeight: FontWeight.w500,
+             height: 1,
+           ),
+
+           decoration: InputDecoration(
+             border: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(15),
+               borderSide: BorderSide(color: Colors.grey),
+               gapPadding: 15,
+             ),
+
+             contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+             hintText: 'Password',
+             hintStyle: TextStyle(
+               color: Color(0xff868686),
+             ),
+           ),
+           obscureText: true,
+         ),
+
+         SizedBox(height: 10),
+
+        TextField(
+         controller: _chekPasswordController,
+          textAlign: TextAlign.left,
+          cursorColor: Colors.grey,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            height: 1,
+          ),
+
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: Colors.grey),
+              gapPadding: 15,
+            ),
+
+            contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+            hintText: 'Password 확인',
+            hintStyle: TextStyle(
+              color: Color(0xff868686),
+            ),
+          ),
+          obscureText: true,
+        ),
+
+        SizedBox(height: 30),
+
+        ElevatedButton(
+         onPressed: _signup,
+         style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Color(0xff2EC6F3)),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+           RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+           )
+          )
+         ),
+         child: Text('회원가입'),
+        ),
+       ],
       ),
-     ],
-    ),
-   ),
+     ),
   );
  }
 }

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 // api 연동위한 import.
 import 'package:http/http.dart' as http;
+import 'package:who_are_url/jurisdictionInfoPage.dart';
 import 'package:who_are_url/mainAppBar.dart';
 import 'package:who_are_url/mainNavigationBar.dart';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:who_are_url/rankingPage.dart';
+import 'package:who_are_url/reportPage.dart';
 
 Future<ResultPage> fetchInfo(String URL) async {
   var url = Uri.http('13.124.151.213:8080', '/result/get', {'url': URL});
@@ -88,15 +92,15 @@ class ResultPage extends StatefulWidget {
 
     if(isSafe == true) {
       status = statuses[0]; // safe.
-      // rankingpage
+      nextPage = RankingPage();
     }
     else if(isDangerous == true) {
       status = statuses[1];   // dangerous.
-      // JurisdictionInfoPage
+      nextPage = JurisdictionInfoPage();
     }
     else {
       status = statuses[2];   // unknown.
-      // ReportPage
+      nextPage = ReportPage(domain: url);
     }
   }
 

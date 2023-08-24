@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:who_are_url/jurisdictionInfoPage.dart';
+import 'package:who_are_url/rankingPage.dart';
+import 'package:who_are_url/searchingPage.dart';
 
 class MainNavigationBar extends StatelessWidget {
   const MainNavigationBar({
@@ -12,17 +15,19 @@ class MainNavigationBar extends StatelessWidget {
       showSelectedLabels: false,
       items: const [
         BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline_rounded, color: Color(0xff2EC6F3)),
-            label: '신고처 정보'),
-        BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded, color: Color(0xff2EC6F3)),
             label: '홈'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart, color: Color(0xff2EC6F3)),
-            label: '피싱차트'),
+            icon: Icon(Icons.info_outline_rounded, color: Color(0xff2EC6F3)),
+            label: '신고처 정보'),
       ],
       onTap: (index) {
-        // 다른 페이지 추가 후 기능구현.
+        if(index == 0) {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>SearchingPage()), (route) => false);
+        }
+        else if(index == 1) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>JurisdictionInfoPage()));
+        }
       },
     );
   }
