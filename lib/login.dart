@@ -39,21 +39,57 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _login() async {// 로그인 로직
+  Future<void> _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    bool isPass = await fetchInfo(email, password);
-    if(isPass){
-      print('로그인 성공');
-    }else{
-      print('로그인 실패');
+    if (email.isNotEmpty && password.isNotEmpty) {
+      bool isPass = await fetchInfo(email, password);
+      if (isPass) {
+        print('로그인 성공');
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => SearchingPage()), (route) => false);
+      } else {
+        print('로그인 실패');
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('email과 password가 일치하지 않습니다.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } else {
+      print('입력되지 않은 항목이 있습니다.');
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text('입력되지 않은 항목이 있습니다.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
+              ),
+            ],
+          );
+        },
+      );
     }
-
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => SearchingPage()), (route) => false);
   }
+
 
   void _signup() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
@@ -101,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               SizedBox(height: 20),
 
-              TextField(
+              TextFormField(
                 controller: _passwordController,
                 textAlign: TextAlign.left,
                 cursorColor: Colors.grey,
