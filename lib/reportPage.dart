@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:who_are_url/jurisdictionInfoPage.dart';
+import 'package:who_are_url/mainAppBar.dart';
+import 'package:who_are_url/mainNavigationBar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:who_are_url/mainAppBar.dart';
 import 'package:who_are_url/mainNavigationBar.dart';
 
 class ReportPage extends StatefulWidget {
-  String url;
+  String domain;
   ReportPage({
     super.key,
-    required this.url,
+    required this.domain,
   });
 
   @override
@@ -24,6 +26,7 @@ void fetchInfo(String reportPage, String reason) async {
   final response = await http.post(url, headers: {
     'Content-Type': 'application/json',
   });
+
 
   if (response.statusCode == 200) {
     //만약 서버가 ok응답을 반환하면, json을 파싱합니다
@@ -39,7 +42,7 @@ class _ReportPageState extends State<ReportPage> {
   bool agreedToTerms = false;
 
   void _submitForm() {
-    if (reasonController.text.isEmpty) {  // 신고 사유 미기입 시 팝업창
+    if (reasonController.text.isEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -56,7 +59,7 @@ class _ReportPageState extends State<ReportPage> {
         ),
       );
     }
-    else if (!agreedToTerms) {  // 주의사항 동의 체크박스 동의하지 않았을 때 팝업창
+    else if (!agreedToTerms) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -72,19 +75,20 @@ class _ReportPageState extends State<ReportPage> {
           ],
         ),
       );
-    } else {   // 조건을 충족시켰을 때 신고 접수를 진행시킨 후 신고완료를 확인시켜주는 팝업창
+    } else {
       String reason = reasonController.text;
 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('신고 완료'),
-          content: Text('신고가 성공적으로 접수되었습니다.\n\n URL: ${widget.url}\n\n 신고사유: $reason'),
+          content: Text('신고가 성공적으로 접수되었습니다.\n\n URL: ${widget.domain}\n\n 신고사유: $reason'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                fetchInfo((widget.url),reason);
+                _showJurisdictionInfo();
+                fetchInfo((widget.domain),reason);
               },
               child: Text('확인'),
             ),
@@ -94,43 +98,36 @@ class _ReportPageState extends State<ReportPage> {
     }
   }
 
+  void _showJurisdictionInfo() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => JurisdictionInfoPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: MainAppBar(appBar: AppBar(), hasBackButton: true, context: context),
-
       body: Container(
-
         color: Colors.white,
         padding: EdgeInsets.all(16.0),
-
         child: ListView(
-
           children: [
-
             SizedBox(height: 3),
-
             Text(
               '의심스러운 URL을 신고해주세요',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-
             Divider(),
-
-            Row(  // 신고할 url 및 icon 나열
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:[
+              children: [
                 Icon(
                   Icons.warning,
                   color: Colors.amberAccent,
                   size: 18,
                 ),
                 Text(
-                  '${widget.url}',
+                  '${widget.domain}',
                   style: TextStyle(fontSize: 18, color: Colors.redAccent),
                   textAlign: TextAlign.center,
                 ),
@@ -141,9 +138,7 @@ class _ReportPageState extends State<ReportPage> {
                 ),
               ],
             ),
-
             SizedBox(height: 15),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
