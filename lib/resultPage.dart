@@ -53,8 +53,8 @@ class ResultPage extends StatefulWidget {
       resultInfo: '안전한 사이트로\n등록되어 안전해요',
       additionalInfo: '안심하고 이 사이트로 떠나도 돼요',
       backgroundColor: Color(0xffccfcde),
-      directionText: '위험한 사이트를 미리 확인해봐요',
-      directionButtonText: '피싱 차트',
+      directionText: '신고처 정보를 확인해보세요',
+      directionButtonText: '신고처 정보',
     ),
     Status( // 위험.
       imogeAddress: 'assets/images/imoge_warnning.png',
@@ -92,7 +92,7 @@ class ResultPage extends StatefulWidget {
 
     if(isSafe == true) {
       status = statuses[0]; // safe.
-      nextPage = RankingPage();
+      nextPage = JurisdictionInfoPage();
     }
     else if(isDangerous == true) {
       status = statuses[1];   // dangerous.
