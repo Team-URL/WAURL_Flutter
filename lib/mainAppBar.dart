@@ -29,7 +29,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       return Container(
         margin: const EdgeInsets.all(10),
         child: Image.asset(
-          'assets/images/logo.png',
+          'assets/images/logo2.png',
           alignment: Alignment.center,
           height: 45,
         ),
@@ -39,8 +39,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         title!,
         textAlign: TextAlign.center,
         style: const TextStyle(
-          color: Colors.black,
-          fontSize: 22,
+          color: Colors.white,
+          fontSize: 23,
           fontWeight: FontWeight.w800,
         ),
       );
@@ -57,9 +57,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          elevation: 3.0,
+          backgroundColor: Color(0xff4baf96),
+          foregroundColor: Colors.white,
           leading: _backButton(this.context),
           centerTitle: true,
           title: _title(),
