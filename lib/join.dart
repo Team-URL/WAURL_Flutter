@@ -97,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
  @override
  Widget build(BuildContext context) {
   return Scaffold(
-   body: Padding(
+   body: SingleChildScrollView(
     padding: const EdgeInsets.all(50),
     child: Column(
      mainAxisAlignment: MainAxisAlignment.center,
