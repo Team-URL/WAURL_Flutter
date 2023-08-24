@@ -44,22 +44,61 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String password = _passwordController.text;
   String chekPassword = _chekPasswordController.text;
 
-  if (password == chekPassword) {
-   // 비밀번호 일치
-   bool isPass = await fetchInfo(email, password);
-   if(isPass){
-    print('회원가입 성공');
-    Navigator.push(// 성공하는 경우만 로그인 페이지로 이동
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen())
-    );
-   }else{
-    print('회원가입 실패');
+  if (email.isNotEmpty && password.isNotEmpty && chekPassword.isEmpty){
+    if (password == chekPassword) {
+      // 비밀번호 일치
+      bool isPass = await fetchInfo(email, password);
+      if(isPass){
+        print('회원가입 성공');
+        Navigator.push(// 성공하는 경우만 로그인 페이지로 이동
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen())
+        );
+      }else{
+        print('회원가입 실패');
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('이미 사용중인 email입니다.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      // true일 때 회원가입되어 로그인 페이지로 이동
+    } else {
+      // 비밀번호 불일치
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text('비밀번호를 확인해주세요.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }else{
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text('이미 사용중인 아이디입니다.'),
+          content: Text('입력되지 않은 항목이 있습니다.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -71,26 +110,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       },
     );
-   }
-   // true일 때 회원가입되어 로그인 페이지로 이동
-  } else {
-    // 비밀번호 불일치
-   showDialog(
-    context: context,
-    builder: (context) {
-     return AlertDialog(
-      content: Text('비밀번호를 확인해주세요.'),
-      actions: [
-       TextButton(
-        onPressed: () {
-         Navigator.pop(context);
-        },
-        child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
-       ),
-      ],
-     );
-    },
-   );
   }
  }
 
