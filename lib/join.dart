@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:who_are_url/mainAppBar.dart';
 import 'login.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -54,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         context,
         MaterialPageRoute(builder: (context) => LoginScreen())
     );
-   }else{//////////// 로그인 페이지로 넘어감 ㅜㅜㅜ ////////////////////////////////////////////////
+   }else{
     print('회원가입 실패');
     showDialog(
       context: context,
@@ -66,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('확인', style: TextStyle(color: Color(0xff2EC6F3))),
+              child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
             ),
           ],
         );
@@ -86,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onPressed: () {
          Navigator.pop(context);
         },
-        child: Text('확인', style: TextStyle(color: Color(0xff2EC6F3))),
+        child: Text('확인', style: TextStyle(color: Color(0xff4baf96))),
        ),
       ],
      );
@@ -129,32 +128,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
 
       SizedBox(height: 10),
-
-       TextField(
-         controller: _passwordController,
-         textAlign: TextAlign.left,
-         cursorColor: Colors.grey,
-         style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          height: 1,
-         ),
-
-         decoration: InputDecoration(
-             border: OutlineInputBorder(
-               borderRadius: BorderRadius.circular(15),
-               gapPadding: 15,
-             ),
-
-          contentPadding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-             hintText: 'email',
-             hintStyle: TextStyle(
-               color: Color(0xff868686),
-             ),
-           )
-        ),
-
-        SizedBox(height: 10),
 
          TextField(
            controller: _passwordController,
@@ -212,18 +185,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         SizedBox(height: 30),
 
-        ElevatedButton(
+       ElevatedButton(
          onPressed: _signup,
-         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Color(0xff2EC6F3)),
-          shape: MaterialStateProperty.all<OutlinedBorder>(
-           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-           )
-          )
+         style: ElevatedButton.styleFrom(
+           padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
+           backgroundColor: Color(0xff4baf96), // 파란색 바탕
+           shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.circular(16), // 버튼 모서리 둥글기 조절
+           ),
          ),
-         child: Text('회원가입'),
-        ),
+         child: Text('회원가입', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Colors.white),),
+       ),
        ],
       ),
      ),

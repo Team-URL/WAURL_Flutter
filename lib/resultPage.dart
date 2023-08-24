@@ -61,7 +61,7 @@ class ResultPage extends StatefulWidget {
       resultInfo: '피싱으로 확인된\n위험한 사이트에요',
       additionalInfo: '클릭 전에 위험을 확인해서 다행이에요',
       backgroundColor: Color(0xffFDF28E),
-      directionText: '피해를 입었다면 이렇게 신고해요',
+      directionText: '피해를 입었다면 이곳에서 신고해요',
       directionButtonText: '신고처 정보',
     ),
     Status( // 알 수 없음.
@@ -152,7 +152,7 @@ class _ResultPageState extends State<ResultPage> {
         Container(
           padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
           decoration: BoxDecoration(
-              color: const Color(0xff0069DF),
+              color: const Color(0xff4baf96),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
@@ -203,7 +203,7 @@ class _ResultPageState extends State<ResultPage> {
                 return Container(
                     alignment: Alignment.center,
                     child: const CircularProgressIndicator(
-                      color: Color(0xff0069df),
+                      color: Color(0xff4baf96),
                     )); // 로딩 중 표시
               } else if (snapshot.hasError) {
                 return Text('데이터 가져오기 실패: ${snapshot.error}');

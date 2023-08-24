@@ -91,7 +91,7 @@ class _SearchingPageState extends State<SearchingPage> {
                         fillColor: Colors.white,
                         hoverColor: const Color(0xffffffff),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 2, color: Color(0xff0069df)),
+                          borderSide: const BorderSide(width: 2, color: Color(0xff4baf96)),
                           borderRadius: BorderRadius.circular(15),
                           gapPadding: 15,
                         ),
@@ -102,7 +102,10 @@ class _SearchingPageState extends State<SearchingPage> {
                         suffixIcon: IconButton(
                           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           onPressed: _onPressed,
-                          icon: const Icon(Icons.search),
+                          icon: const Icon(
+                              Icons.search,
+                              color: Color(0xff4baf96),
+                          ),
                         ),
                         contentPadding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
                         hintText: 'https://www.whoareurl.com',

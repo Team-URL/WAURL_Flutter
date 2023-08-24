@@ -13,6 +13,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WhoAreURL',
+      theme: ThemeData(
+        primarySwatch: MaterialColor(0xff4baf96
+            , {
+          50: Color(0xff4baf96
+          ),
+          100: Color(0xff4baf96
+          ),
+          200: Color(0xff4baf96
+          ),
+          300: Color(0xff4baf96
+          ),
+          400: Color(0xff4baf96
+          ),
+          500: Color(0xff4baf96
+          ),
+          600: Color(0xff4baf96
+          ),
+          700: Color(0xff4baf96
+          ),
+          800: Color(0xff4baf96
+          ),
+          900: Color(0xff4baf96
+          ),
+        }),
+      ),
       home: LoginScreen(),
     );
   }
